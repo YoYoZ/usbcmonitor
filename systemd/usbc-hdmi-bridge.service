@@ -1,0 +1,38 @@
+[Unit]
+Description=USB(UVC) Blackmagic -> HDMI bridge
+After=systemd-udevd.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/sbin/usbc-hdmi-bridge.sh
+Restart=always
+RestartSec=2
+
+User=bridge
+Group=bridge
+SupplementaryGroups=video render
+# При загрузке udev выставляет права на /dev/video*, /dev/dri/* на ~25 с позже, чем их
+# создаёт ядро (одно ядро, сотни устройств). Чтобы не ждать — только это право, не root.
+AmbientCapabilities=CAP_DAC_OVERRIDE
+CapabilityBoundingSet=CAP_DAC_OVERRIDE
+# Одно ядро: видео важнее фоновой догрузки системы и прочих служб.
+Nice=-10
+
+# Реестр плагинов GStreamer и кэш fontconfig должны где-то сохраняться,
+# иначе каждый запуск gst-launch заново сканирует плагины (секунды CPU на Zero).
+CacheDirectory=usbc-bridge
+Environment=HOME=/var/cache/usbc-bridge
+Environment=XDG_CACHE_HOME=/var/cache/usbc-bridge
+Environment=GST_REGISTRY=/var/cache/usbc-bridge/gst-registry.bin
+
+StandardOutput=journal
+StandardError=journal
+
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+RestrictAddressFamilies=AF_UNIX AF_NETLINK
+
+[Install]
+WantedBy=multi-user.target

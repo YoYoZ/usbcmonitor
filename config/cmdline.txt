@@ -1,0 +1,1 @@
+overlayroot=tmpfs console=serial0,115200 root=PARTUUID=bc6c70d6-02 rootfstype=ext4 rootwait quiet vt.global_cursor_default=0 consoleblank=0 logo.nologo cfg80211.ieee80211_regdom=UA video=HDMI-A-1:1920x1080@60 fastboot

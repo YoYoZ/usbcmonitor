@@ -1,0 +1,10 @@
+# 1edb — USB vendor ID Blackmagic Design (подтверждён по базе USB ID).
+# Product ID конкретной камеры не нужен: на data-порт Zero подключается только она.
+
+# Стабильное имя видеоузла захвата (index 0; index 1 у UVC — узел метаданных).
+SUBSYSTEM=="video4linux", ATTRS{idVendor}=="1edb", ATTR{index}=="0", \
+  SYMLINK+="v4l/by-id/blackmagic-uvc-video-index0"
+
+# Если камера как составное устройство поднимает сетевой интерфейс (тетеринг),
+# NetworkManager его не трогает: без DHCP-попыток и лишней нагрузки на CPU.
+SUBSYSTEM=="net", ATTRS{idVendor}=="1edb", ENV{NM_UNMANAGED}="1"
