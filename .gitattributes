@@ -1,0 +1,2 @@
+# Всё едет на Linux (Pi): только LF, иначе bash и cmdline.txt ломаются на \r
+* text=auto eol=lf
