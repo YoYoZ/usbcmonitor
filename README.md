@@ -105,6 +105,7 @@ config/                      — копии с платы
   modprobe-usbcmonitor-blacklist.conf — тетеринг и звук камеры (-> /etc/modprobe.d/usbcmonitor-blacklist.conf)
   journald-usbcmonitor.conf  — журнал в RAM, до 16 МБ (-> /etc/systemd/journald.conf.d/usbcmonitor.conf)
   initramfs-usbcmonitor.conf — MODULES=most, иначе initramfs не собирается (-> /etc/initramfs-tools/conf.d/usbcmonitor)
+  networkmanager-wifi-powersave-off.conf — без энергосбережения Wi-Fi, иначе SSH отваливается (-> /etc/NetworkManager/conf.d/)
 backup/bootfs-original/      — исходные config.txt/cmdline.txt от Imager
 systemd/
   usbc-hdmi-bridge.service   — автозапуск, Restart=always, пользователь bridge, песочница
